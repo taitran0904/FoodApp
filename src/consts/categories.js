@@ -3,4 +3,5 @@ const categories = [
     {id: '2', name: 'Burger', image: require('../assets/categories/burger.png')},
     {id: '3', name: 'Shushi', image: require('../assets/categories/sushi.png')},
     {id: '4', name: 'Salad', image: require('../assets/categories/salad.png')}
-]
+];
+export default categories;
