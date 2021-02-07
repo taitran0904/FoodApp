@@ -34,4 +34,6 @@ const foods = [
         price: '9.55',
         image: require('../assets/sushiMakizushi.png'),
     },
-]
+];
+
+export default foods;
