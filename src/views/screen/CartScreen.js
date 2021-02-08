@@ -1,25 +1,102 @@
 //import liraries
-import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, SafeAreaView, Image, FlatList } from 'react-native';
+import Icon from '@expo/vector-icons/MaterialIcons'
+import COLORS from '../../consts/colors'
+import foods from '../../consts/foods';
+import {PrimaryButton} from '../component/Button';
 
-// create a component
-const MyComponent = () => {
-    return (
-        <View style={styles.container}>
-            <Text>MyComponent</Text>
-        </View>
-    );
-};
+const CartScreen = ({navigation}) => {
+    const CartCard = ({item}) => {
+        return(
+            <View style={styles.cartCard}>
+                <Image source={item.image} style={{height: 80, width: 80}}/>
+                <View
+                    style={{
+                        height: 100,
+                        marginLeft: 10,
+                        paddingVertical: 20,
+                        flex: 1
+                    }}
+                >
+                    <Text style={{fontWeight: 'bold', fontSize: 16}}>{item.name}</Text>
+                    <Text style={{fontSize: 13, color: COLORS.grey}}>{item.ingredients}</Text>
+                    <Text style={{fontWeight: 'bold', fontSize: 17}}>{item.price}</Text>
+                </View>
+                <View style={{marginRight: 20, alignItems: 'center'}}>
+                    <Text style={{fontWeight: 'bold', fontSize: 18}}>3</Text>
+                    <View style={styles.actionBtn}>
+                        <Icon name="remove" size={25} color={COLORS.white}/>
+                        <Icon name="add" size={25} color={COLORS.white}/>
+                    </View>
+                </View>
+            </View>
+        )
+    }
+    return(
+        <SafeAreaView 
+            style={{backgroundColor: COLORS.white, flex: 1}}
+        >
+            <View style={styles.header}>
+                <Icon name="arrow-back" size={24} color="black" onPress={navigation.goBack}/>
+                <Text style={{fontSize: 20, fontWeight: 'bold', marginLeft: 10}}>Cart</Text>
+            </View>
+            <FlatList 
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{paddingBottom: 80}}
+                data={foods}
+                renderItem={({item}) => <CartCard item={item}/>}
+                ListFooterComponentStyle={{paddingHorizontal: 20, marginTop: 20}}
+                ListFooterComponent={() => (
+                    <View>
+                        <View
+                            style={{
+                                flexDirection: 'row',
+                                justifyContent: 'space-between',
+                                marginVertical: 15
+                            }}
+                        >
+                            <Text style={{fontSize: 18, fontWeight: 'bold'}}>Total Price</Text>
+                            <Text style={{fontSize: 18, fontWeight: 'bold'}}>50$</Text>
+                        </View>
+                        <View style={{marginHorizontal: 30}}>
+                            <PrimaryButton title="CHECKOUT"/>
+                        </View>
+                    </View>
+                )}
+            />
+        </SafeAreaView>
+    )
+}
 
-// define your styles
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
+    header:{
+        paddingVertical: 20,
+        flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#2c3e50',
+        marginHorizontal: 20,
     },
-});
+    cartCard: {
+        height: 100,
+        elevation: 15,
+        borderRadius: 10,
+        backgroundColor: COLORS.white,
+        marginVertical: 10,
+        marginHorizontal: 20,
+        paddingHorizontal: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+      },
+    actionBtn: {
+        width: 80,
+        height: 30,
+        backgroundColor: COLORS.primary,
+        borderRadius: 30,
+        paddingHorizontal: 5,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignContent: 'center',
+    }
+})
 
-//make this component available to the app
-export default MyComponent;
+export default CartScreen;

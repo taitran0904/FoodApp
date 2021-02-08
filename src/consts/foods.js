@@ -15,7 +15,7 @@ const foods = [
     },
     {
         id: '2',
-        name: 'Cheese Pizza',
+        name: 'Chee Pizza',
         ingredients: 'Cheese Pizza',
         price: '7.10',
         image: require('../assets/cheesePizza.png')
